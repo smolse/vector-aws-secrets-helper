@@ -1,0 +1,37 @@
+name: PR Created
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build 
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install Rust stable toolchain
+        run: rustup toolchain install stable --profile minimal
+
+      - name: Cache Rust workspaces
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: |
+            . -> target
+
+      - name: Check formatting
+        run: cargo fmt --check
+
+      - name: Run linter
+        run: cargo clippy --all-targets --all-features -- -W clippy::cognitive_complexity -D warnings
+
+      - name: Run unit tests
+        run: cargo test
+
+      - name: Build 
+        run: cargo build --release
