@@ -1,7 +1,7 @@
 # vector-aws-secrets-helper
 
 A helper tool for [Vector](https://vector.dev/) to securely retrieve secrets from AWS SSM Parameter Store and AWS
-Secrets Manager using the [exec](https://vector.dev/docs/reference/configuration/global-options/#secret.exec) backend.
+Secrets Manager using the [exec](https://vector.dev/highlights/2022-07-07-secrets-management/) backend.
 
 ## Installation
 
