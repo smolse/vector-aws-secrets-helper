@@ -32,11 +32,14 @@ async fn main() {
     // Parse the CLI arguments.
     let cli = Cli::parse();
 
-    // Parse the JSON from stdin into a SecretsToFetch struct. It assumes that Vector will always
-    // provide valid JSON, so we can simply unwrap the result. Probably should implement proper
-    // pattern matching for the result here at some point instead.
-    let secrets_to_fetch: vector::SecretsToFetch =
-        serde_json::from_reader(std::io::stdin()).unwrap();
+    // Parse the JSON from stdin into a SecretsToFetch struct.
+    let secrets_to_fetch: vector::SecretsToFetch = match serde_json::from_reader(std::io::stdin()) {
+        Ok(secrets_to_fetch) => secrets_to_fetch,
+        Err(_) => {
+            eprintln!("failed to parse JSON from stdin");
+            std::process::exit(1);
+        }
+    };
 
     // Load the AWS SDK config using the default credential provider chain.
     let aws_sdk_config = aws_config::load_from_env().await;
