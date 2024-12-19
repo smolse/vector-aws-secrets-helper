@@ -1,5 +1,11 @@
 # vector-aws-secrets-helper
 
+> [!NOTE]
+> This tool was created for securely retrieving secrets from AWS via the `exec`
+backend added in Vector v0.23. In Vector v0.38, the native `aws_secrets_manager`
+secrets backend was introduced, which is now the recommended way to retrieve
+secrets from AWS Secrets Manager.
+
 A helper tool for [Vector](https://vector.dev/) to securely retrieve secrets from AWS SSM Parameter Store and AWS
 Secrets Manager using the [exec](https://vector.dev/highlights/2022-07-07-secrets-management/) backend.
 
